@@ -1,0 +1,15 @@
+{
+    "name": "Typography",
+    "lowCaseName": "typography",
+    "description": "Create beautifully typeset content in MODX … without the extra work.",
+    "author": "Ryan Thrash",
+    "version": "1.0.0-pl",
+
+    "package":{
+    "elements": {
+        "snippets": [{
+            "name": "typography"
+        }]
+    }
+
+}
