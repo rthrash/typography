@@ -6,10 +6,10 @@
     "version": "1.0.0-pl",
 
     "package":{
-    "elements": {
-        "snippets": [{
-            "name": "typography"
-        }]
-    }
-
+	    "elements": {
+	        "snippets": [{
+	            "name": "typography"
+	        }]
+	    }
+	}
 }
