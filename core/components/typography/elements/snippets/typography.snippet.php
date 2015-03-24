@@ -86,6 +86,17 @@ if (!function_exists('SmartElipsis')) {
 }
 
 
+if (!function_exists('SmartSymbols')) {
+    function SmartSymbols($text, $attr = null) {
+        switch ($attr) {
+            case 0:  return $text;
+            default: $attr = 's'; break;
+        }
+        return SmartyPants($text, $attr);
+    }
+}
+
+
 if (!class_exists('SmartyPants_Parser')) {
     #
     # SmartyPants Parser
@@ -119,6 +130,7 @@ if (!class_exists('SmartyPants_Parser')) {
         # D : old school dashes
         # i : inverted old school dashes
         # e : ellipses
+        # s : symbols
         # w : convert &quot; entities to " for Dreamweaver users
         #
             if ($attr == "0") {
@@ -130,6 +142,7 @@ if (!class_exists('SmartyPants_Parser')) {
                 $this->do_backticks = 1;
                 $this->do_dashes    = 1;
                 $this->do_ellipses  = 1;
+                $this->do_symbols   = 1;
             }
             else if ($attr == "2") {
                 # Do everything, turn all options on, use old school dash shorthand.
@@ -137,6 +150,7 @@ if (!class_exists('SmartyPants_Parser')) {
                 $this->do_backticks = 1;
                 $this->do_dashes    = 2;
                 $this->do_ellipses  = 1;
+                $this->do_symbols   = 1;
             }
             else if ($attr == "3") {
                 # Do everything, turn all options on, use inverted old school dash shorthand.
@@ -144,6 +158,7 @@ if (!class_exists('SmartyPants_Parser')) {
                 $this->do_backticks = 1;
                 $this->do_dashes    = 3;
                 $this->do_ellipses  = 1;
+                $this->do_symbols   = 1;
             }
             else if ($attr == "-1") {
                 # Special "stupefy" mode.
@@ -159,6 +174,7 @@ if (!class_exists('SmartyPants_Parser')) {
                     else if ($c == "D") { $this->do_dashes    = 2; }
                     else if ($c == "i") { $this->do_dashes    = 3; }
                     else if ($c == "e") { $this->do_ellipses  = 1; }
+                    else if ($c == "s") { $this->do_symbols   = 1; }
                     else if ($c == "w") { $this->convert_quot = 1; }
                     else {
                         # Unknown attribute option, ignore.
@@ -220,6 +236,8 @@ if (!class_exists('SmartyPants_Parser')) {
             }
     
             if ($this->do_ellipses) $t = $this->educateEllipses($t);
+    
+            if ($this->do_symbols) $t = $this->educateSymbols($t);
     
             # Note: backticks need to be processed before quotes.
             if ($this->do_backticks) {
@@ -443,6 +461,22 @@ if (!class_exists('SmartyPants_Parser')) {
         #
     
             $_ = str_replace(array("...",     ". . .",), '&#8230;', $_);
+            return $_;
+        }
+
+
+        function educateSymbols($_) {
+        #
+        #   Parameter:  String.
+        #   Returns:    The string, with each instance of "(c)", "(r)" and "(tm)" translated to
+        #               a ©, ®, ™ and ° HTML entities.
+        #
+        #   Example input:  (c)2015. All rights reserved.
+        #   Example output: &#169;2015. All rights reserved.
+        #
+    
+            $_ = str_replace(array("(c)",   "(r)",   "(tm)",    "(deg)"),
+                             array('&#169;','&#174;','&#8482;', '&#176;'), $_);
             return $_;
         }
     
