@@ -63,7 +63,7 @@
 
 <h3><a id="what-typography-does" class="anchor" href="#what-typography-does" aria-hidden="true"><span class="octicon octicon-link"></span></a>What Typography Does</h3>
 
-<p>Typography uses a slighty-tweaked SmartyPants library to make content prettier as MODX pages render. Because it is an output filter, it doesn’t actually change your content. </p>
+<p>Typography uses a slighty-tweaked [PHP SmartyPants](https://michelf.ca/projects/php-smartypants/) library by Michel Fortin to make content prettier as MODX pages render. Because it is an output filter, it doesn’t actually change your content. </p>
 
 <p>To install Typography, use the MODX Package Manager from inside your MODX installation. You can also manually install it by creating a Snippet named “typography“ and copying and pasting the contents of one of the downloadable files in the header into the Snippet content field.</p>
 
@@ -80,6 +80,19 @@
 <li>(c), (r), (tm) and (deg) into ©, ®, ™ and ° HTML entities
 </ul>
 <p>Typography does not modify characters within <code>&lt;pre&gt;</code>, <code>&lt;code&gt;</code>, <code>&lt;kbd&gt;</code>, or <code>&lt;script&gt;</code> tag blocks. Typically, these tags are used to display text where smart quotes and other “smart punctuation” would not be appropriate, such as source code or example markup.</p>
+
+<h4>Leading Single-quote Characters</h4>
+Paraphrased from the author of the originating author:
+
+<p>A situation in which quotes will get curled the wrong way is when
+apostrophes are used at the start of leading contractions. For example:</p>
+
+<p><pre>    'Twas the night before Christmas.</pre></p>
+
+<p>In this case, Typography will turn the apostrophe into an opening
+single-quote, when it should be a closing one. This problem cannot be easily
+solved in the general case. In fact, virtually every word processor gets this wrong, too.
+To work around this use the proper HTML entity for closing single-quotes (<code>&amp;#8217;</code> or <code>&amp;rsquo;</code>) by hand, or use keyboard shortcuts such as <code>shift</code>+<code>opt</code>+<code>]</code> on Macs.</p>
 
 
 <h3>
