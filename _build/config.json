@@ -8,7 +8,8 @@
     "package":{
 	    "elements": {
 	        "snippets": [{
-	            "name": "typography"
+	            "name": "typography",
+	            "description": "Create beautifully typeset content in MODX without the extra work."
 	        }]
 	    }
 	}
